@@ -1,0 +1,40 @@
+# yaml 配置实例
+version: '3'
+services:
+  mysql:
+    image: "mysql:5.7"
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./mysql/data:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    privileged: true
+    networks:
+      - webnet
+  redis:
+    image: "redis:6.2.5"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./redis/data:/data/redis/data"
+      - "./redis/redis.conf:/etc/redis.conf"
+    command: "redis-server /etc/redis.conf"
+    restart: always
+    privileged: true
+    networks:
+      - webnet
+  php:
+    build: ./php
+    restart: always
+    privileged: true
+    networks:
+      - webnet
+    volumes:
+      - "./php/extension:/data/"
+    command:
+      - "php app.php start"
+networks:
+  webnet:
+    driver: bridge
