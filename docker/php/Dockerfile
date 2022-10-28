@@ -1,4 +1,4 @@
-FROM php:7.4.25
+FROM php:7.4.25-fpm
 WORKDIR /data/
 
 COPY extension /data/
@@ -18,4 +18,7 @@ RUN apt-get install -y libzip-dev
 RUN docker-php-ext-install zip
 
 #wework
-RUN phpize && ./configure --with-php-config=$INSTALL_PHP_PATH/php-config --with-wxwork-finance-sdk=/data/extension/libWeWorkFinanceSdk_C.so && make && make install && echo "extension=wxwork_finance_sdk.so" >> /usr/local/etc/php/conf.d/php.ini
+#RUN phpize
+#RUN ./configure --with-php-config=/usr/local/bin/php-config --with-wxwork-finance-sdk=/data/docker/php/extension/libWeWorkFinanceSdk_C.so
+#RUN make && make install
+#RUN echo "extension=wxwork_finance_sdk.so" >> /usr/local/etc/php/conf.d/php.ini

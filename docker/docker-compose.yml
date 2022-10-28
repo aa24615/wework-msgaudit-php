@@ -32,9 +32,9 @@ services:
     networks:
       - webnet
     volumes:
-      - "./php/extension:/data/"
-    command:
-      - "php app.php start"
+      - "../:/data/"
+#    command:
+#      - "php /data/bin/run.php"
 networks:
   webnet:
     driver: bridge
